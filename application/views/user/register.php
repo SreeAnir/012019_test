@@ -1,6 +1,8 @@
 
 <div class="login-form">
-    <form autocomplete="off" id="register-form" class="form-class" action="authenticate" method="post">
+<?php echo validation_errors(); ?>
+
+    <form autocomplete="off" id="register-form___" class="form-class" action="authenticate" method="post">
          <input autocomplete="off" name="hidden" type="text" style="display:none;">
         <h2 class="text-center">Register</h2>
 
