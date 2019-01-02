@@ -20,14 +20,14 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 <div class="login-form">
-    <form autocomplete="off" id="loginForm" class="form-class" action="authenticate" method="post">
+    <form autocomplete="off" id="login-form" class="form-class" action="authenticate" method="post">
          <input autocomplete="off" name="hidden" type="text" style="display:none;">
         <h2 class="text-center">Login</h2>       
         <div class="form-group">
-            <input type="text"  class="form-control" placeholder="Email" required="required">
+            <input type="text" name="email"  class="form-control" placeholder="Email" required="required">
         </div>
          <div class="form-group">
-            <input autocomplete="off" type="password" class="form-control" placeholder="Confirm Password" required="required">
+            <input autocomplete="off" name="password" type="password" class="form-control" placeholder="Confirm Password" required="required">
         </div>
         <div class="form-group">
             <button type="submit" id="login_now" class="btn btn-primary btn-block">Log in</button>
@@ -48,15 +48,52 @@ function checkLoginState() {
     
   });
 }
-$(document).ready(function(){
-    $('#login_now').click(function(){
-       if($("#loginForm").validate()){
-        alert("DONE");
-       }else{
-        alert("Notyet");
-       }
-        return false;
+ 
+</script>
+<script type="text/javascript">
+/**
+  * Basic jQuery Validation Form Demo Code
+  * Copyright Sam Deering 2012
+  * Licence: http://www.jquery4u.com/license/
+  */
+(function($,W,D)
+{
+    var JQUERY4U = {};
 
+    JQUERY4U.UTIL =
+    {
+        setupFormValidation: function()
+        {
+            //form validation rules
+            $("#login-form").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 5
+                    },
+                    },
+                messages: {
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long"
+                    },
+                    email: "Please enter a valid email address",
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        }
+    }
+
+    //when the dom has loaded setup form validation rules
+    $(D).ready(function($) {
+        JQUERY4U.UTIL.setupFormValidation();
     });
-});
+
+})(jQuery, window, document);
 </script>
