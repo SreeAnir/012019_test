@@ -56,7 +56,10 @@ $route['translate_uri_dashes'] = FALSE;
 //project routes
 $route['login'] = 'user/auth/login';
 $route['register'] = 'user/auth/register';
-$route['authenticate'] = 'user/auth/authenticate';
+$route['home'] = 'user/dashboard/home';
+
+
+// $route['authenticate'] = 'user/auth/authenticate';
 
 
 

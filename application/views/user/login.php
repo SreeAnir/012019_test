@@ -20,14 +20,29 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 <div class="login-form">
-    <form autocomplete="off" id="login-form" class="form-class" action="authenticate" method="post">
+  <?php if($this->session->flashdata('message')!=null){ ?>
+  <div class="alert alert-success">
+  <?php echo $this->session->flashdata('message');?>
+</div>
+<?php } ?>
+<?php if($this->session->flashdata('error_message')!=null){ ?>
+  <div class="alert alert-danger">
+  <?php echo $this->session->flashdata('error_message');?>
+</div>
+<?php } ?>
+  
+    <form autocomplete="off" id="login-form-" class="form-class" method="post">
          <input autocomplete="off" name="hidden" type="text" style="display:none;">
-        <h2 class="text-center">Login</h2>       
+        <h2 class="text-center">Login</h2>  
+	  <?php echo validation_errors(); ?>
+      <?php if(isset($error_message)){
+      echo "<div class='alert alert-danger'>".$error_message."</div>";
+      }?>     
         <div class="form-group">
-            <input type="text" name="email"  class="form-control" placeholder="Email" required="required">
+            <input type="text" name="email"  class="form-control" placeholder="Email" >
         </div>
          <div class="form-group">
-            <input autocomplete="off" name="password" type="password" class="form-control" placeholder="Confirm Password" required="required">
+            <input autocomplete="off" name="password" type="password" class="form-control" placeholder="Confirm Password">
         </div>
         <div class="form-group">
             <button type="submit" id="login_now" class="btn btn-primary btn-block">Log in</button>
