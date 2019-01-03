@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'user/auth/login';
 $route['register'] = 'user/auth/register';
 $route['home'] = 'user/dashboard/home';
+$route['interest/add']='User/interest/add_interest';
 
 
 // $route['authenticate'] = 'user/auth/authenticate';

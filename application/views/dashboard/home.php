@@ -16,7 +16,9 @@
 }
 </style>
 <div class="row">
-  <div class="col-sm-4">
+  <input type="text"  id="interest">
+  <input type="button" id="save_interest" value="Add">
+  <!-- <div class="col-sm-4">
 <div class="left-home">
 	<p>kjdfnb jkdfv</p>
 	<p>kjdfnb jkdfv</p>
@@ -31,5 +33,28 @@
 	<p>kjdfnb jkdfv</p>
 	<p>kjdfnb jkdfv</p>
 </div>
-  </div>
+  </div> -->
 </div>
+<script>
+$(document).ready(
+  function(){
+    $('#save_interest').on('click',function(){
+      let interest=$('#interest').val();
+     if(interest==""){
+       alert("Please Enter an Interest");
+       return false;
+     }else{
+          $.ajax({
+          method: "POST",
+          url: "interest/add",
+          data: { keyword:interest}
+          })
+          .done(function( msg ) {
+            console.log(msg);
+          });
+     }
+    }
+    );
+  }
+);
+</script>

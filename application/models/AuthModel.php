@@ -35,13 +35,26 @@ class AuthModel extends CI_Model {
                 return ($this->db->affected_rows() != 1) ? false : true;
         }
 
-        public function update_entry()
+       
+        public function getUser($key="")
         {
-                $this->title    = $_POST['title'];
-                $this->content  = $_POST['content'];
-                $this->date     = time();
-
-                $this->db->update('entries', $this, array('id' => $_POST['id']));
+             
+            try{
+                $user_data=$this->session->userdata('logged_in');
+               
+                if($user_data==null){
+                    return false;
+                }
+                if($key!=""){ 
+                    return ($user_data->$key);
+                }
+                else{
+                    return $user_data;
+                }
+            } catch (Exception $e) {
+                return false;   
+            }
+            
         }
 
 }

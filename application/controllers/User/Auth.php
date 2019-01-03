@@ -14,7 +14,7 @@ function __construct()
 {
   parent:: __construct();
   $this->load->Model('AuthModel');
-    $this->load->helper(array('form', 'url'));
+  $this->load->helper(array('form', 'url'));
 
 }
 
@@ -39,8 +39,13 @@ public function login()
 	  );
 	  $result = $this->AuthModel->authenticate($data_an);
 	  if ($result != FALSE) {
-	  // Add user data in session
-	  $this->session->set_userdata('logged_in', $result);
+      // Add user data in session
+     $sess_array=array();
+      foreach($result as $row)
+     {
+        $this->session->set_userdata('logged_in', $row); 
+		 }
+		 $user_data=$this->session->userdata('logged_in');
  	   redirect('/home');
 	  } else {
 	  $data['error_message']= 'Invalid Username or Password' ;
@@ -105,9 +110,4 @@ public function register()
    }
 }
 
-public function authenticate()
-{
-  var_dump($_POST);
-  $this->load->view('user/register');
-}
 }
