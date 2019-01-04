@@ -18,6 +18,52 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+
+function initMap(){
+  var watchID;
+    var log = $("#log");
+
+ watchID = navigator.geolocation.watchPosition(showPosition, positionError);
+ function showPosition(position) {
+
+   logMsg("Showing current position.");
+
+   var coords = position.coords;
+   $("#clat").val(coords.latitude);
+   $("#clng").val(coords.longitude);
+
+   // var clat = latitude.dataset.decoder;
+   // var clng = longitude.dataset.decoder;
+
+   // clat.value = position.coords.latitude;
+   // clng.value = position.coords.longitude;
+
+   // mapLink.attr("href", "http://maps.google.com/maps?q=" + $("#clat").val() + ",+" + $("#clng").val() + "+(You+are+here!)&iwloc=A&hl=en");
+
+   // mapLink.show();
+  }
+
+  function positionError(e) {
+   switch (e.code) {
+    case 0:
+     logMsg("The application has encountered an unknown error while trying to determine your current location. Details: " + e.message);
+     break;
+    case 1:
+     logMsg("You chose not to allow this application access to your location.");
+     break;
+    case 2:
+     logMsg("The application was unable to determine your location.");
+     break;
+    case 3:
+     logMsg("The request to determine your location has timed out.");
+     break;
+   }
+  }
+
+  function logMsg(msg) {
+   log.append("<li>" + msg + "</li>");
+  }
+}
 </script>
 <div class="login-form">
   <?php if($this->session->flashdata('message')!=null){ ?>
@@ -30,7 +76,8 @@
   <?php echo $this->session->flashdata('error_message');?>
 </div>
 <?php } ?>
-  
+  <ul style="display:none" id="log"></ul>
+ 
     <form autocomplete="off" id="login-form-" class="form-class" method="post">
          <input autocomplete="off" name="hidden" type="text" style="display:none;">
         <h2 class="text-center">Login</h2>  
@@ -38,6 +85,8 @@
       <?php if(isset($error_message)){
       echo "<div class='alert alert-danger'>".$error_message."</div>";
       }?>     
+      <input type="text" id="clat" name="clat" />
+    <input type="text" id="clng" name="clng" />
         <div class="form-group">
             <input type="text" name="email"  class="form-control" placeholder="Email" >
         </div>
@@ -112,3 +161,4 @@ function checkLoginState() {
 
 })(jQuery, window, document);
 </script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>

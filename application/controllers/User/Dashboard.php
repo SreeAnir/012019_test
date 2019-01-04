@@ -14,12 +14,18 @@ function __construct()
 {
   parent:: __construct();
   $this->load->Model('AuthModel');
+  $user = $this->AuthModel->getUser();
+        if(!$user){
+            redirect('/login'); 
+            exit;
+   } 
 }
 
  
 public function home()
 {
- $data = array('content' => 'dashboard/home', 'title' => 'Login Now');
+	$user = $this->AuthModel->getUser();
+ $data = array('content' => 'dashboard/home', 'title' => 'Login Now','user'=>$user);
    $this->load->view('dashboard_template', $data);
 }
 }

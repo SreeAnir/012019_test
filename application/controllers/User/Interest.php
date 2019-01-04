@@ -24,7 +24,7 @@ class Interest extends CI_Controller
             echo json_encode($response); 
             exit;
         } 
-        
+        $this->load->library('pagination');
     }
 
     public function add_interest()
@@ -33,17 +33,26 @@ class Interest extends CI_Controller
         $response['status'] = 0;
         $response['message'] = 0;
         try {
-            $interest = $_POST['keyword'];
-            if ($interest == "") {
+            $user_id = $this->AuthModel->getUser('id');
+            
+            if ($user_id=="" ) {
                 $response['status'] = 0;
-                $response['message'] = "No Keyword added";
+                $response['message'] = "No User Id";
                 echo json_encode($response);
             } else {
-                $user_id = $this->AuthModel->getUser('id');
+                
                 $save_data = array(
                     'user_id' => $user_id,
-                    'keyword' => $interest,
                 );
+                if(isset( $_POST['id'])){
+                  $save_data['id']  = $_POST['id'];
+                }
+                if(isset( $_POST['keyword'])){
+                  $save_data['keyword']  = $_POST['keyword'];
+                }
+                if(isset( $_POST['status'])){
+                  $save_data['status']  = $_POST['status'];
+                }
                 $result = $this->InterestModel->save_interest($save_data);
                 if ($result) {
                     $response['status'] = 1;
@@ -51,7 +60,6 @@ class Interest extends CI_Controller
                 } else {
                     $response['status'] = 0;
                     $response['message'] = "Faile to Add";
-                    echo json_encode($response);
                 }
                 echo json_encode($response);
 
@@ -60,5 +68,35 @@ class Interest extends CI_Controller
             echo $e->getMessage();die();
             return false;
         }
+    }
+
+    public function list_interest()
+    {
+            $user_id = $this->AuthModel->getUser('id');
+            $config = array();
+            $config["base_url"] ="interest/list";
+            $data_search=array('user_id'=>$user_id,'status'=>1);
+            $total_row = $this->InterestModel->record_count($data_search);
+            $config["total_rows"] = $total_row;
+            $config["per_page"] = 5;
+            $config['use_page_numbers'] = TRUE;
+            $config['num_links'] = $total_row;
+            $config['cur_tag_open'] = '&nbsp;<a class="current">';
+            $config['cur_tag_close'] = '</a>';
+            $config['next_link'] = 'Next';
+            $config['prev_link'] = 'Previous';
+            $this->pagination->initialize($config);
+            if($this->uri->segment(3)){ 
+            $page = ($this->uri->segment(3)) ;
+            }
+            else{
+            $page = 1;
+            }
+            $data["results"] = $this->InterestModel->get_interest_for_user($data_search,$config["per_page"], $page);
+            $str_links = $this->pagination->create_links();
+            $data["links"] = explode('&nbsp;',$str_links );
+
+            // View data according to array.
+        $this->load->view('dashboard/interest_list',$data);
     }
 }

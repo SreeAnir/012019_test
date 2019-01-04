@@ -19,13 +19,17 @@
     border: 1px solid #ece9e9;
 }
 
-
-    }
-
+ .header{
+    padding-left: 10px;
+    padding-right: 10px;
+ }
 </style>
 </head>
 <body>
     <div class="container-fluid parent-container">
+    <div class="header">
+    <h1>User Header</h1>  
+  </div>
   <div class="row content">
 <?php $this->load->view($content); ?>
 </div>

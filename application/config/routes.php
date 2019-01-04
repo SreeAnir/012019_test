@@ -58,6 +58,9 @@ $route['login'] = 'user/auth/login';
 $route['register'] = 'user/auth/register';
 $route['home'] = 'user/dashboard/home';
 $route['interest/add']='User/interest/add_interest';
+$route['interest/list/(:any)']='User/interest/list_interest';
+
+
 
 
 // $route['authenticate'] = 'user/auth/authenticate';
