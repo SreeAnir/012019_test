@@ -23,11 +23,15 @@
     padding-left: 10px;
     padding-right: 10px;
  }
+ .logout{
+    float: right;
+ }
 </style>
 </head>
 <body>
     <div class="container-fluid parent-container">
     <div class="header">
+        <label class="logout"><a href="<?php base_url();?>login">Logout</a></label>
     <h1>User Header</h1>  
   </div>
   <div class="row content">

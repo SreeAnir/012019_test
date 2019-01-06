@@ -22,6 +22,7 @@ class Interest extends CI_Controller
             $response['status'] = 0;
             $response['message'] = "No  user session";
             echo json_encode($response); 
+            echo json_encode($response); 
             exit;
         } 
         $this->load->library('pagination');

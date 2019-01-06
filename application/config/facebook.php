@@ -16,8 +16,8 @@
 |  facebook_graph_version        string   Specify Facebook Graph version. Eg v2.10
 |  facebook_auth_on_load         boolean  Set to TRUE to check for valid access token on every page load.
 */
-$config['facebook_app_id']              = '1080755485440444';
-$config['facebook_app_secret']          = '7a4bdfc2246cc5ffead26595d3c8ca32';
+$config['facebook_app_id']              = '289935414878093';
+$config['facebook_app_secret']          = '23fd46d2c467b914cf1ab84897a26f1a';
 $config['facebook_login_type']          = 'web';
 $config['facebook_login_redirect_url']  = 'user_authentication';
 $config['facebook_logout_redirect_url'] = 'user_authentication/logout';

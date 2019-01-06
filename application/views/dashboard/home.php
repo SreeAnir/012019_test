@@ -96,6 +96,7 @@ width: 70%;
 
     <p class="list-group-item">
     <span class="label-span">Last Updated</span> 
+	
     <span class="label-span2">
 
       <?php
@@ -104,7 +105,19 @@ $new_date = date('d M Y h:m A', $date);
        echo $new_date; ?>
     <?php } ?>
 </span></p>
-
+ <p class="list-group-item">
+    <span class="label-span">Location</span> 
+    <span class="label-span2">
+	<br/>
+      <?php
+      if($user->location==""){
+        echo "Not Specified";
+      }
+      else{
+        echo $user->location;
+      }
+        ?>
+    </span></p>
     <p class="list-group-item">
     
 

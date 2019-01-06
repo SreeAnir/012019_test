@@ -54,17 +54,26 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 //project routes
+
 $route['login'] = 'user/auth/login';
+$route['logout'] = 'user/auth/logout';
+$route['privacy_policy'] = 'welcome/index';
+$route['FB_auth'] = 'user/auth/facebook_auth';
 $route['register'] = 'user/auth/register';
 $route['home'] = 'user/dashboard/home';
 $route['interest/add']='User/interest/add_interest';
-$route['interest/list/(:any)']='User/interest/list_interest';
+$route['interest/list/(:any)']='User/interest/list_interest/$1';
 
+//Admin
+$route['admin']='admin/auth/login';
+$route['admin/login']='admin/auth/login';
+$route['admin/home']='/admin/cms/home';
+$route['admin/userlist/(:any)']='/admin/cms/userlist/$1';
+$route['admin/userlist']='/admin/cms/userlist';
+$route['user/change_status']='/admin/cms/change_status';
+$route['admin/user_details/(:any)']='/admin/cms/user_details/$1';
+$route['user_interest/list/(:any)']='admin/cms/user_interest/$1';
 
-
-
-// $route['authenticate'] = 'user/auth/authenticate';
-
-
+ 
 
 	

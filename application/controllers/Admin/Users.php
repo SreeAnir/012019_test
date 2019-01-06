@@ -29,7 +29,7 @@ redirect('/login');
 public function home()
 {
 	$user = $this->AuthModel->getUser();
- $data = array('content' => 'dashboard/home', 'title' => 'User Home','user'=>$user);
+ $data = array('content' => 'dashboard/home', 'title' => 'Login Now','user'=>$user);
    $this->load->view('layout/dashboard_template', $data);
 }
 }

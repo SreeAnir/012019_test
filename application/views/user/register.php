@@ -14,6 +14,16 @@ echo "<div class='alert alert-danger'>".$error_message."</div>";
         <div class="form-group">
             <input  name="lastname" value="<?=set_value('lastname')?>"  autocomplete="off" type="text"  class="form-control" placeholder="Last Name" >
         </div>
+		  <div class="form-group">
+		  <p><label>
+		 Gender
+		 </label></p>
+		 <p  id="gender_div">
+           <label>Male <input  type="radio"  value="male"   name="gender" ></label>
+		  <label> Female <input  type="radio"  value="female"   name="gender" ></label>
+		  <label> Others <input  type="radio"  value="other"   name="gender" ></label>
+		  </p>
+        </div>
         <div class="form-group">
             <input type="text" name="email" value="<?=set_value('email')?>"   class="form-control" placeholder="Email" >
         </div>
@@ -50,6 +60,7 @@ echo "<div class='alert alert-danger'>".$error_message."</div>";
                 rules: {
                     firstname: "required",
                     lastname: "required",
+					gender: "required",
                     email: {
                         required: true,
                         email: true
@@ -67,6 +78,7 @@ echo "<div class='alert alert-danger'>".$error_message."</div>";
                 messages: {
                     firstname: "Please enter your firstname",
                     lastname: "Please enter your lastname",
+					gender: "Choose Your Gender",
                     password: {
                         required: "Please provide a password",
                         minlength: "Your password must be at least 5 characters long"
@@ -81,7 +93,14 @@ echo "<div class='alert alert-danger'>".$error_message."</div>";
                 },
                 submitHandler: function(form) {
                     form.submit();
-                }
+                },
+				errorPlacement: function(error, element) {
+  if (element.attr("name") == "gender") {
+     error.insertAfter("#gender_div");
+  } else {
+     error.insertAfter(element);
+  }
+},
             });
         }
     }

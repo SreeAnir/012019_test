@@ -4,9 +4,9 @@
         </div> 
         <div class="cotent-list">
 <?php
-if (!isset($results)) {
-    echo "<p>No Data Found</p>";
-}
+if (!isset($results)|| empty($results)) {
+    echo "<p class='no-msg alert alert-danger'>Nothing Found.Add New Interest.</p>";
+}else{
 foreach ($results as $data) {
 ?>
 <p class="list-group-item">
@@ -29,6 +29,7 @@ foreach ($results as $data) {
 ?>"  > Delete </a>  </span></p>
  <?php
 }
+}
 ?>
 
 
@@ -44,6 +45,10 @@ foreach ($links as $link) {
 </div>
 </div>
 <style type="text/css">
+.no-msg{
+  width: 90%;
+  margin-left: 20px;
+}
 .save_item {
   display: none;
 }

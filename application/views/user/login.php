@@ -1,7 +1,7 @@
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '1080755485440444',
+      appId      : '289935414878093',
       cookie     : true,
       xfbml      : true,
       version    : 'v3.2'
@@ -18,6 +18,10 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+   
 
 function initMap(){
   var watchID;
@@ -65,6 +69,9 @@ function initMap(){
   }
 }
 </script>
+ <div class="spinner-loader" style="display:none;">
+            <div class="spinloader"></div>
+        </div> 
 <div class="login-form">
   <?php if($this->session->flashdata('message')!=null){ ?>
   <div class="alert alert-success">
@@ -85,8 +92,8 @@ function initMap(){
       <?php if(isset($error_message)){
       echo "<div class='alert alert-danger'>".$error_message."</div>";
       }?>     
-      <input type="text" id="clat" name="clat" />
-    <input type="text" id="clng" name="clng" />
+      <input type="hidden" id="clat" name="clat" />
+    <input type="hidden" id="clng" name="clng" />
         <div class="form-group">
             <input type="text" name="email"  class="form-control" placeholder="Email" >
         </div>
@@ -106,9 +113,37 @@ function initMap(){
     </form>
 </div> 
 <script>
+function makeLogin() {
+  $('.spinner-loader').show();
+  FB.api('/me', function (response) {
+    response.clat=$('#clat').val();
+    response.clng=$('#clng').val();
+    console.log(response);
+    if(response.id!=""){
+
+  $.post("FB_auth",
+  {
+  response,
+  },
+  function(data, status){
+
+   if(status){
+    window.location="home";
+   }else{
+     $('.spinner-loader').hide();
+   }
+  });
+}else{
+  alert("Failed to Login.");
+}
+
+});
+}
+
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     console.log(response);
+    makeLogin();
     
   });
 }
